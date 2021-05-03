@@ -1,0 +1,6 @@
+[all:vars]
+ansible_ssh_user=root
+ansible_ssh_pass=wipro123
+
+[kmaster1]
+172.16.1.62

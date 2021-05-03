@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: springboot-ingress
+  generation: 2
+spec:
+  rules:
+  - host: springboot.example.com
+    http:
+      paths:
+      - backend:
+          serviceName: springboot
+          servicePort: 9080
+status:
+  loadBalancer:
+    ingress:
+    - ip: 172.16.1.65
+    - ip: 172.16.1.66

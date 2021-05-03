@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: kubespring-service
+spec:
+  selector:
+    role: springboot
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 9080
+      targetPort: 9080

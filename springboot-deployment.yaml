@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    role: springboot
+  name: springboot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      role: springboot
+  template:
+    metadata:
+      labels:
+        role: springboot
+    spec:
+      containers:
+      - name: springboot
+        image: "{{ image_id }}"
+        ports:
+          - containerPort: 9080
+        resources:
+          requests:
+            cpu: 300m
+            memory: 512Mi
+      imagePullSecrets:
+      - name: dockercredentials 

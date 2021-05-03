@@ -1,0 +1,14 @@
+- hosts: all,!localhost
+  tasks:
+  - name: Deploy the service
+    k8s:
+      state: present
+      definition: "{{ lookup('template', 'kubespring-service.yaml') | from_yaml }}"
+      validate_certs: no
+      namespace: application
+  - name: Deploy the application
+    k8s:
+      state: present
+      validate_certs: no
+      namespace: application
+      definition: "{{ lookup('template', 'springboot-deployment.yaml') | from_yaml }}"
