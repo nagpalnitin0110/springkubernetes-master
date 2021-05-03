@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:camel="http://camel.apache.org/schema/spring"
+        xmlns:cxf="http://camel.apache.org/schema/cxf"
+        xmlns:cxfcore="http://cxf.apache.org/core"
+
+        xsi:schemaLocation="
+                http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+                http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+                http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
+
+	<bean id="process" class="in.springboot.webservices.springboottech.Processing"/>
+
+	<camelContext id="SpringBootTech" xmlns="http://camel.apache.org/schema/spring" streamCache="true">
+
+	<dataFormats>
+	     <json id="jsonOrder" library="Jackson"/>
+        </dataFormats>
+
+	<route id="GetHello">
+                <from uri="restlet:http://0.0.0.0:9080/api/getHello?restletMethod=GET"/>
+                   <log message="SpringBootTech001 Hit Received at GetHello ** ${date:now:yyyy-MM-dd HH:mm:ss}"/>
+
+                   <removeHeaders pattern="*"/>
+                   <setHeader headerName="Content-Type"><simple>application/json</simple></setHeader>
+                   <setBody><simple>{"Message":"Hello Kubernetes"}</simple></setBody>
+                   <setHeader headerName="CamelRestletResponse"><simple>${body}</simple></setHeader>
+	</route>
+
+	<route id="GetFibonacciSeries">
+                <from uri="restlet:http://0.0.0.0:9080/api/getFibonacciSeries?restletMethod=GET"/>
+                   <log message="SpringBootTech001 Hit Received at GetFibonacciSeries ** ${date:now:yyyy-MM-dd HH:mm:ss}"/>
+		   <bean ref="process" method="getFibonacciResult"/>
+                   <setBody><simple>{"Result":${header.Result}}</simple></setBody>
+                   <removeHeaders pattern="*"/>
+                   <setHeader headerName="Content-Type"><simple>application/json</simple></setHeader>
+                   <setHeader headerName="CamelRestletResponse"><simple>${body}</simple></setHeader>
+        </route>
+
+  </camelContext>
+</beans>
