@@ -20,7 +20,7 @@
         </dataFormats>
 
 	<route id="GetHello">
-                <from uri="restlet:http://0.0.0.0:9080/api/getHello?restletMethod=GET"/>
+                <from uri="restlet:http://0.0.0.0:9000/api/getHello?restletMethod=GET"/>
                    <log message="SpringBootTech001 Hit Received at GetHello ** ${date:now:yyyy-MM-dd HH:mm:ss}"/>
 
                    <removeHeaders pattern="*"/>
@@ -30,7 +30,7 @@
 	</route>
 
 	<route id="GetFibonacciSeries">
-                <from uri="restlet:http://0.0.0.0:9080/api/getFibonacciSeries?restletMethod=GET"/>
+                <from uri="restlet:http://0.0.0.0:9000/api/getFibonacciSeries?restletMethod=GET"/>
                    <log message="SpringBootTech001 Hit Received at GetFibonacciSeries ** ${date:now:yyyy-MM-dd HH:mm:ss}"/>
 		   <bean ref="process" method="getFibonacciResult"/>
                    <setBody><simple>{"Result":${header.Result}}</simple></setBody>
