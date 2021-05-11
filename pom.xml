@@ -53,6 +53,7 @@
 		<dependency>
                    <groupId>io.hawt</groupId>
                    <artifactId>hawtio-springboot</artifactId>
+			<scope>provided</scope>
                 </dependency>
 
 		<dependency>
