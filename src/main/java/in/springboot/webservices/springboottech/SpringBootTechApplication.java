@@ -10,7 +10,7 @@ public class SpringBootTechApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootTechApplication.class, args);
-		LOG.info("hawtio.authenticationEnabled==== : " + System.getProperty("hawtio.authenticationEnabled"));
+		
 	}
 
 }
